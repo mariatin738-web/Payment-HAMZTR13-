@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment HAMZTR13</title>
+    <style>
+        :root {
+            --primary-blue: #4285F4;
+            --dark-blue: #3367D6;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFF;
+            --card-bg: #FFFFFF;
+            --text-dark: #202124;
+            --text-medium: #5F6368;
+            --text-light: #9AA0A6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .payment-title {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-title .black-text {
+            color: var(--text-dark);
+        }
+        
+        .payment-title .blue-text {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .payment-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(66, 133, 244, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.15);
+            border-color: rgba(66, 133, 244, 0.3);
+        }
+
+        .payment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-icon {
+            width: 56px;
+            height: 56px;
+            margin-right: 1rem;
+            object-fit: contain;
+            border-radius: 12px;
+            background-color: rgba(66, 133, 244, 0.08);
+            padding: 12px;
+        }
+
+        .payment-method-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .payment-body {
+            margin-top: 1.5rem;
+        }
+
+        .payment-number {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(66, 133, 244, 0.05);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px dashed rgba(66, 133, 244, 0.3);
+        }
+
+        .number {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .copy-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn i {
+            font-size: 1rem;
+        }
+
+        .device-copy-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(66, 133, 244, 0.05);
+            border-radius: 12px;
+            border: 1px dashed rgba(66, 133, 244, 0.3);
+        }
+
+        .device-copy-title {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-copy-title i {
+            color: var(--primary-blue);
+        }
+
+        .device-copy-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .device-copy-btn {
+            flex: 1;
+            background: white;
+            border: 1px solid rgba(66, 133, 244, 0.3);
+            color: var(--primary-blue);
+            padding: 0.6rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .device-copy-btn:hover {
+            background: rgba(66, 133, 244, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .device-copy-btn i {
+            font-size: 1rem;
+        }
+
+        .instructions {
+            background: rgba(66, 133, 244, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2.5rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .instructions h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .steps {
+            list-style-type: none;
+        }
+
+        .steps li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .steps li:before {
+            content: "•";
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -0.3rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--text-dark);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification i {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-card {
+                padding: 1.5rem;
+            }
+            
+            .payment-icon {
+                width: 48px;
+                height: 48px;
+                padding: 10px;
+            }
+            
+            .payment-number {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .copy-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .device-copy-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .payment-card:nth-child(1) { animation-delay: 0.1s; }
+        .payment-card:nth-child(2) { animation-delay: 0.2s; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="payment-title">
+                <span class="black-text">Payment</span> 
+                <span class="blue-text">HAMZTR13</span>
+            </h1>
+            <p class="subtitle">Choose your preferred payment method</p>
+        </header>
+
+        <div class="payment-grid">
+            <!-- DANA Payment -->
+            <div class="payment-card">
+                <div class="payment-header">
+                    <img src="https://images.seeklogo.com/logo-png/39/2/dana-e-wallet-app-logo-png_seeklogo-399948.png" alt="DANA" class="payment-icon">
+                    <h2 class="payment-method-title">DANA</h2>
+                </div>
+                <div class="payment-body">
+                    <div class="payment-number">
+                        <span id="dana-number" class="number">081568459588</span>
+                        <button class="copy-btn" onclick="copyToClipboard('dana-number', 'DANA number')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p style="color: var(--text-medium); font-size: 0.9rem;">
+                        Send payment to this DANA number via the DANA app
+                    </p>
+                    
+                    <div class="device-copy-section">
+                        <div class="device-copy-title">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Copy directly to device:</span>
+                        </div>
+                        <div class="device-copy-buttons">
+                            <button class="device-copy-btn" onclick="copyToClipboard('dana-number', 'DANA number')">
+                                <i class="fas fa-copy"></i> Universal Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GoPay Payment -->
+            <div class="payment-card">
+                <div class="payment-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" class="payment-icon">
+                    <h2 class="payment-method-title">GoPay</h2>
+                </div>
+                <div class="payment-body">
+                    <div class="payment-number">
+                        <span id="gopay-number" class="number">081568459588</span>
+                        <button class="copy-btn" onclick="copyToClipboard('gopay-number', 'GoPay number')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <p style="color: var(--text-medium); font-size: 0.9rem;">
+                        Send payment to this GoPay number via the Gojek app
+                    </p>
+                    
+                    <div class="device-copy-section">
+                        <div class="device-copy-title">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Copy directly to device:</span>
+                        </div>
+                        <div class="device-copy-buttons">
+                            <button class="device-copy-btn" onclick="copyToClipboard('gopay-number', 'GoPay number')">
+                                <i class="fas fa-copy"></i> Universal Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>Payment Instructions</h3>
+            <ul class="steps">
+                <li>Copy the payment number for your chosen method</li>
+                <li>Open the DANA or Gojek app on your device</li>
+                <li>Paste the number in the recipient field</li>
+                <li>Enter the payment amount and complete the transaction</li>
+                <li>Save your payment receipt for confirmation</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Number copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Universal copy function with fallback
+        function copyToClipboard(elementId, type) {
+            const element = document.getElementById(elementId);
+            const text = element.innerText;
+            
+            // Create temporary textarea element
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                // Try modern clipboard API first
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        showNotification(`${type} copied to clipboard!`);
+                    }).catch(err => {
+                        // Fallback to execCommand if clipboard API fails
+                        fallbackCopy(text, type);
+                    });
+                } else {
+                    // Fallback for older browsers
+                    fallbackCopy(text, type);
+                }
+            } catch (err) {
+                fallbackCopy(text, type);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Fallback copy method using execCommand
+        function fallbackCopy(text, type) {
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showNotification(`${type} copied to clipboard!`);
+                } else {
+                    showNotification('Press Ctrl/Cmd+C to copy');
+                }
+            } catch (err) {
+                showNotification('Failed to copy. Please select and copy manually.');
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Device detection for analytics (optional)
+        function detectDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            if (/android/i.test(userAgent)) {
+                return 'Android';
+            }
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return 'iOS';
+            }
+            return 'Desktop';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Device detected:', detectDevice());
+        });
+    </script>
+</body>
+</html>
